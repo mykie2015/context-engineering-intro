@@ -11,22 +11,20 @@ A comprehensive template for getting started with Context Engineering - the disc
 git clone https://github.com/coleam00/Context-Engineering-Intro.git
 cd Context-Engineering-Intro
 
-# 2. Set up your project rules (optional - template provided)
-# Edit CLAUDE.md to add your project-specific guidelines
+# 2. Open in VS Code with Cline extension
+code .
 
-# 3. Add examples (highly recommended)
-# Place relevant code examples in the examples/ folder
+# 3. Let Cline read the project context
+# Cline will automatically read AI_ASSISTANT_RULES.md and understand the project structure
 
-# 4. Create your initial feature request
+# 4. Edit your initial feature request
 # Edit INITIAL.md with your feature requirements
 
-# 5. Generate a comprehensive PRP (Product Requirements Prompt)
-# In Claude Code, run:
-/generate-prp INITIAL.md
+# 5. Ask Cline to generate a comprehensive PRP
+# Simply ask: "Please create a PRP for the feature in INITIAL.md"
 
-# 6. Execute the PRP to implement your feature
-# In Claude Code, run:
-/execute-prp PRPs/your-feature-name.md
+# 6. Ask Cline to execute the PRP
+# Say: "Please implement the PRP you just created"
 ```
 
 ## 📚 Table of Contents
@@ -66,29 +64,25 @@ Context Engineering represents a paradigm shift from traditional prompt engineer
 
 ```
 context-engineering-intro/
-├── .claude/
-│   ├── commands/
-│   │   ├── generate-prp.md    # Generates comprehensive PRPs
-│   │   └── execute-prp.md     # Executes PRPs to implement features
-│   └── settings.local.json    # Claude Code permissions
+├── .vscode/
+│   └── settings.json          # Cline configuration
 ├── PRPs/
 │   ├── templates/
 │   │   └── prp_base.md       # Base template for PRPs
 │   └── EXAMPLE_multi_agent_prp.md  # Example of a complete PRP
 ├── examples/                  # Your code examples (critical!)
-├── CLAUDE.md                 # Global rules for AI assistant
+├── AI_ASSISTANT_RULES.md     # Global rules for AI assistant
+├── CLINE_INSTRUCTIONS.md     # Specific instructions for Cline
 ├── INITIAL.md               # Template for feature requests
 ├── INITIAL_EXAMPLE.md       # Example feature request
 └── README.md                # This file
 ```
 
-This template doesn't focus on RAG and tools with context engineering because I have a LOT more in store for that soon. ;)
-
 ## Step-by-Step Guide
 
-### 1. Set Up Global Rules (CLAUDE.md)
+### 1. Set Up Global Rules (AI_ASSISTANT_RULES.md)
 
-The `CLAUDE.md` file contains project-wide rules that the AI assistant will follow in every conversation. The template includes:
+The `AI_ASSISTANT_RULES.md` file contains project-wide rules that the AI assistant will follow in every conversation. The template includes:
 
 - **Project awareness**: Reading planning docs, checking tasks
 - **Code structure**: File size limits, module organization
@@ -129,18 +123,10 @@ PRPs (Product Requirements Prompts) are comprehensive implementation blueprints 
 
 They are similar to PRDs (Product Requirements Documents) but are crafted more specifically to instruct an AI coding assistant.
 
-Run in Claude Code:
-```bash
-/generate-prp INITIAL.md
-```
+**With Cline:**
+Simply ask: "Please create a PRP for the feature described in INITIAL.md"
 
-**Note:** The slash commands are custom commands defined in `.claude/commands/`. You can view their implementation:
-- `.claude/commands/generate-prp.md` - See how it researches and creates PRPs
-- `.claude/commands/execute-prp.md` - See how it implements features from PRPs
-
-The `$ARGUMENTS` variable in these commands receives whatever you pass after the command name (e.g., `INITIAL.md` or `PRPs/your-feature.md`).
-
-This command will:
+Cline will:
 1. Read your feature request
 2. Research the codebase for patterns
 3. Search for relevant documentation
@@ -148,13 +134,11 @@ This command will:
 
 ### 4. Execute the PRP
 
-Once generated, execute the PRP to implement your feature:
+Once generated, ask Cline to implement the PRP:
 
-```bash
-/execute-prp PRPs/your-feature-name.md
-```
+**Say:** "Please implement the PRP you just created"
 
-The AI coding assistant will:
+Cline will:
 1. Read all context from the PRP
 2. Create a detailed implementation plan
 3. Execute each step with validation
@@ -188,9 +172,9 @@ The AI coding assistant will:
 
 ## The PRP Workflow
 
-### How /generate-prp Works
+### How PRP Generation Works
 
-The command follows this process:
+Cline follows this process:
 
 1. **Research Phase**
    - Analyzes your codebase for patterns
@@ -198,99 +182,120 @@ The command follows this process:
    - Identifies conventions to follow
 
 2. **Documentation Gathering**
-   - Fetches relevant API docs
-   - Includes library documentation
-   - Adds gotchas and quirks
+   - Searches for relevant API docs
+   - Finds implementation examples
+   - Identifies best practices
 
-3. **Blueprint Creation**
+3. **PRP Creation**
+   - Uses `PRPs/templates/prp_base.md` as foundation
+   - Includes comprehensive context
+   - Adds validation commands
    - Creates step-by-step implementation plan
-   - Includes validation gates
-   - Adds test requirements
 
-4. **Quality Check**
-   - Scores confidence level (1-10)
-   - Ensures all context is included
-
-### How /execute-prp Works
-
-1. **Load Context**: Reads the entire PRP
-2. **Plan**: Creates detailed task list using TodoWrite
-3. **Execute**: Implements each component
-4. **Validate**: Runs tests and linting
-5. **Iterate**: Fixes any issues found
-6. **Complete**: Ensures all requirements met
-
-See `PRPs/EXAMPLE_multi_agent_prp.md` for a complete example of what gets generated.
+4. **Quality Assurance**
+   - Ensures all necessary context is included
+   - Validates that implementation steps are clear
+   - Confirms validation gates are executable
 
 ## Using Examples Effectively
 
-The `examples/` folder is **critical** for success. AI coding assistants perform much better when they can see patterns to follow.
-
-### What to Include in Examples
-
-1. **Code Structure Patterns**
-   - How you organize modules
-   - Import conventions
-   - Class/function patterns
-
-2. **Testing Patterns**
-   - Test file structure
-   - Mocking approaches
-   - Assertion styles
-
-3. **Integration Patterns**
-   - API client implementations
-   - Database connections
-   - Authentication flows
-
-4. **CLI Patterns**
-   - Argument parsing
-   - Output formatting
-   - Error handling
-
-### Example Structure
+### Structure Your Examples
 
 ```
 examples/
-├── README.md           # Explains what each example demonstrates
-├── cli.py             # CLI implementation pattern
-├── agent/             # Agent architecture patterns
-│   ├── agent.py      # Agent creation pattern
-│   ├── tools.py      # Tool implementation pattern
-│   └── providers.py  # Multi-provider pattern
-└── tests/            # Testing patterns
-    ├── test_agent.py # Unit test patterns
-    └── conftest.py   # Pytest configuration
+├── basic_patterns/
+│   ├── api_client.py         # HTTP client patterns
+│   ├── database.py           # Database connection patterns
+│   └── testing.py            # Test patterns
+├── advanced_features/
+│   ├── async_processing.py   # Async patterns
+│   ├── error_handling.py     # Error handling patterns
+│   └── authentication.py     # Auth patterns
+└── project_specific/
+    ├── your_domain_logic.py  # Domain-specific patterns
+    └── integrations.py       # Integration patterns
 ```
+
+### Example Guidelines
+
+1. **Real, Working Code**: Examples should be runnable
+2. **Well-Commented**: Explain why, not just what
+3. **Pattern-Focused**: Show the approach, not just the solution
+4. **Current**: Keep examples updated with your current patterns
 
 ## Best Practices
 
-### 1. Be Explicit in INITIAL.md
-- Don't assume the AI knows your preferences
-- Include specific requirements and constraints
-- Reference examples liberally
+### For Context Engineering
 
-### 2. Provide Comprehensive Examples
-- More examples = better implementations
-- Show both what to do AND what not to do
-- Include error handling patterns
+1. **Be Comprehensive**: Include all necessary context
+2. **Use Real Examples**: Reference actual code patterns
+3. **Validate Everything**: Provide executable validation steps
+4. **Iterate and Improve**: Refine PRPs based on results
 
-### 3. Use Validation Gates
-- PRPs include test commands that must pass
-- AI will iterate until all validations succeed
-- This ensures working code on first try
+### For Working with Cline
 
-### 4. Leverage Documentation
-- Include official API docs
-- Add MCP server resources
-- Reference specific documentation sections
+1. **Start Simple**: Begin with clear, specific requests
+2. **Reference Context**: Point Cline to relevant files and patterns
+3. **Validate Frequently**: Ask Cline to run tests and checks
+4. **Be Iterative**: Build and test incrementally
 
-### 5. Customize CLAUDE.md
-- Add your conventions
-- Include project-specific rules
-- Define coding standards
+### For Project Organization
 
-## Resources
+1. **Keep Examples Updated**: Examples should reflect current practices
+2. **Document Gotchas**: Capture common pitfalls in AI_ASSISTANT_RULES.md
+3. **Use Descriptive Names**: Make file purposes clear
+4. **Follow Conventions**: Stick to established patterns
 
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Context Engineering Best Practices](https://www.philschmid.de/context-engineering)
+## Advanced Features
+
+### Multi-Agent Systems
+
+See `PRPs/EXAMPLE_multi_agent_prp.md` for a complete example of how to build complex multi-agent systems using this template.
+
+### Integration Patterns
+
+The template supports various integration patterns:
+- API integrations
+- Database operations
+- External service connections
+- Authentication flows
+
+### Testing Strategies
+
+Built-in support for:
+- Unit testing with pytest
+- Integration testing
+- Validation loops
+- Error handling verification
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Cline doesn't follow patterns**: Ensure examples are clear and well-documented
+2. **Implementation fails**: Check that validation commands are executable
+3. **Context is missing**: Add more detail to AI_ASSISTANT_RULES.md and examples
+4. **Tests don't pass**: Verify test patterns in examples folder
+
+### Getting Help
+
+1. Check `CLINE_INSTRUCTIONS.md` for detailed workflow
+2. Review `PRPs/templates/prp_base.md` for PRP structure
+3. Look at `PRPs/EXAMPLE_multi_agent_prp.md` for complex examples
+4. Ensure `AI_ASSISTANT_RULES.md` contains all project rules
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add your improvements
+4. Test with Cline
+5. Submit a pull request
+
+## License
+
+This template is open source and available under the MIT License.
+
+---
+
+**Remember**: Context Engineering is about giving AI assistants everything they need to succeed. The more context you provide, the better the results!

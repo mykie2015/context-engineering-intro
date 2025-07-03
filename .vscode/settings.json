@@ -1,0 +1,19 @@
+{
+  "cline.codebaseContextOn": true,
+  "cline.readOnlyMode": false,
+  "cline.browserViewportSize": "1024x768",
+  "cline.customInstructions": "Follow the project rules defined in AI_ASSISTANT_RULES.md. Always read project documentation before starting work. Use the examples/ folder for reference patterns. Follow the Context Engineering methodology as described in CLINE_INSTRUCTIONS.md.",
+  "cline.mcpEnabled": false,
+  "cline.apiRequestTimeoutMs": 120000,
+  "cline.maxRequestsPerTask": 50,
+  "cline.alwaysAllowReadOnly": true,
+  "cline.experimentalTerminalOutputSupport": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    ".venv": true
+  }
+}
