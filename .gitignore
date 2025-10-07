@@ -3,3 +3,7 @@ venv_linux
 __pycache__
 .ruff_cache
 .pytest_cache
+
+# AI Assistant local settings (user-specific)
+.claude/settings.local.json
+.vscode/settings.json

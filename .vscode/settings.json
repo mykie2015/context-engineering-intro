@@ -2,7 +2,7 @@
   "cline.codebaseContextOn": true,
   "cline.readOnlyMode": false,
   "cline.browserViewportSize": "1024x768",
-  "cline.customInstructions": "Follow the project rules defined in AI_ASSISTANT_RULES.md. Always read project documentation before starting work. Use the examples/ folder for reference patterns. Follow the Context Engineering methodology as described in CLINE_INSTRUCTIONS.md.",
+  "cline.customInstructions": "Follow the project rules defined in CLAUDE.md. Always read project documentation before starting work. Use the examples/ folder for reference patterns. Follow the Context Engineering methodology.",
   "cline.mcpEnabled": false,
   "cline.apiRequestTimeoutMs": 120000,
   "cline.maxRequestsPerTask": 50,
